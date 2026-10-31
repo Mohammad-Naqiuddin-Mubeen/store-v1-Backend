@@ -1,7 +1,8 @@
 import { config } from "dotenv";
 import express from "express";
 import CORS from "cors";
-import connectDB from "./database/ConnectDB.js";
+import { connectDB } from "./database/ConnectDB.js";
+import routes from "./routes/auth.routes.js";
 
 config();
 
@@ -12,8 +13,10 @@ const URI = process.env.MONGODB_URI;
 app.use(CORS());
 app.use(express.json());
 
+app.use("/api/auth", routes);
+
 app.get("/", (req, res) => {
-  res.send("First commit");
+  res.send("Server says HI");
 });
 
 const startServer = async () => {
