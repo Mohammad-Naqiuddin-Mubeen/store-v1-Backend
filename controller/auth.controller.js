@@ -4,12 +4,12 @@ import { connectDB } from "../database/ConnectDB.js";
 const registerUser = async (request, response) => {
   const client = await connectDB();
 
-  const { firstName, lastName, username, password, mobileNumber, email } =
+  const { firstName, lastName, userName, password, mobileNumber, email } =
     request.body;
 
   const existingUsername = await client
     .collection("USERS")
-    .findOne({ username: username });
+    .findOne({ usernName: userName });
   const existingEmail = await client
     .collection("USERS")
     .findOne({ email: email });
@@ -48,7 +48,7 @@ const registerUser = async (request, response) => {
     lastName: lastName,
     contactInfo: mobileNumber,
     email: email,
-    username: username,
+    username: userName,
     password: hashedPassword,
     createdAt: new Date(),
   };
